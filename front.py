@@ -7,14 +7,24 @@ import backend
 ##llamado a flask
 app = Flask(__name__)
 
+IMG_FOLDER = os.path.join('static', 'img')
+
+app.config['UPLOAD_FOLDER'] = IMG_FOLDER
 ##servicio web
+
+
 @app.route('/', methods = ["GET","POST"])
 def home():
-    return render_template('index.html')
+    fondoP = os.path.join(app.config['UPLOAD_FOLDER'], 'cat-4.jpg')
+    return render_template('index.html',fondo=fondoP)
 
 @app.route('/cursos', methods = ["GET","POST"])
 def cursos():
-    return render_template('cursos.html')
+    progra = os.path.join(app.config['UPLOAD_FOLDER'], 'progra.jpeg')
+    ml = os.path.join(app.config['UPLOAD_FOLDER'], 'ml.png')
+    va = os.path.join(app.config['UPLOAD_FOLDER'], 'va.jpg')
+    ig = os.path.join(app.config['UPLOAD_FOLDER'], 'ig.png')
+    return render_template('cursos.html',progra=progra, ml=ml , va=va, ig=ig)
 
 @app.route('/login', methods = ["GET","POST"])
 def login():
