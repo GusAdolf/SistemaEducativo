@@ -49,6 +49,10 @@ def about():
     alexis = os.path.join(app.config['UPLOAD_FOLDER'], 'alexis.jpeg')
     return render_template('about.html',cami=cami, joss=joss , gus=gus, jona=jona,alexis=alexis)
 
+@app.route('/info', methods = ["GET","POST"])
+def info():
+    return render_template('info.html')
+
 ##ejecutar el servicio web
 if __name__=='__main__':
     #OJO QUITAR EL DEBUG EN PRODUCCION
