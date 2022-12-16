@@ -33,6 +33,9 @@ def login():
 @app.route('/docentes', methods = ["GET","POST"])
 def docentes():
     return render_template('docentes.html')
+@app.route('/inscripciones', methods = ["GET","POST"])
+def inscripciones():
+    return render_template('insc.html')
 
 
 
