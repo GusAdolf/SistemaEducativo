@@ -29,6 +29,10 @@ def cursos():
 @app.route('/login', methods = ["GET","POST"])
 def login():
     return render_template('login.html')
+    
+@app.route('/docentes', methods = ["GET","POST"])
+def docentes():
+    return render_template('docentes.html')
 
 
 
