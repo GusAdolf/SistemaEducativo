@@ -33,12 +33,19 @@ def login():
 @app.route('/docentes', methods = ["GET","POST"])
 def docentes():
     return render_template('docentes.html')
+
 @app.route('/inscripciones', methods = ["GET","POST"])
 def inscripciones():
     return render_template('insc.html')
 
-
-
+@app.route('/about', methods = ["GET","POST"])
+def about():
+    cami = os.path.join(app.config['UPLOAD_FOLDER'], 'cami.jpeg')
+    joss = os.path.join(app.config['UPLOAD_FOLDER'], 'joss.jpeg')
+    gus = os.path.join(app.config['UPLOAD_FOLDER'], 'gus.jpg')
+    jona = os.path.join(app.config['UPLOAD_FOLDER'], 'jona.jpg')
+    alexis = os.path.join(app.config['UPLOAD_FOLDER'], 'alexis.jpeg')
+    return render_template('about.html',cami=cami, joss=joss , gus=gus, jona=jona,alexis=alexis)
 
 ##ejecutar el servicio web
 if __name__=='__main__':
