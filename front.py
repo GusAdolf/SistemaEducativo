@@ -36,6 +36,8 @@ def docentes():
 @app.route('/inscripciones', methods = ["GET","POST"])
 def inscripciones():
     return render_template('insc.html')
+def alumno1():
+    return render_template('alumno1.html')
 
 
 
