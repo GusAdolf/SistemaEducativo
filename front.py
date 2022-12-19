@@ -1,14 +1,15 @@
 #IMPORTAR LIBRERIA PARA USAR FRAMEWORK FLASK
-from flask import Flask
+from flask import Flask,request, session, redirect, url_for
 from flask import render_template
 import os
 from flask import request
 import backend
+import pymysql
 ##llamado a flask
 app = Flask(__name__)
 
 IMG_FOLDER = os.path.join('static', 'img')
-
+app.secret_key = 'my_secret_key'
 app.config['UPLOAD_FOLDER'] = IMG_FOLDER
 ##servicio web
 
@@ -28,7 +29,41 @@ def cursos():
 
 @app.route('/login', methods = ["GET","POST"])
 def login():
-    return render_template('login.html')
+   # Si el usuario envía el formulario
+    if request.method == 'POST':
+        # Obtener los datos del formulario
+        username = request.form['username']
+        password = request.form['password']
+
+        # Establecer la conexión a la base de datos
+        connection = pymysql.connect(host='db4free.net',
+                                     user='admin12345',
+                                     password='admin12345',
+                                     db='sisedu12345')
+
+        # Crear un cursor
+        cursor = connection.cursor()
+
+        # Verificar si el nombre de usuario y la contraseña son válidos
+        query = 'SELECT * FROM usuarios WHERE cedula = %s AND password = %s'
+        cursor.execute(query, (username, password))
+        result = cursor.fetchone()
+
+        # Cerrar la conexión
+        connection.close()
+
+        # Si se encuentra un usuario válido, iniciar sesión
+        if result:
+            session['username'] = username
+            return redirect(url_for('alumno1'))
+
+        # Si no se encuentra un usuario válido, mostrar un mensaje de error
+        error = 'Invalid username or password'
+    else:
+        error = None
+
+    # Mostrar el formulario de inicio de sesión
+    return render_template('login.html', error=error)
     
 @app.route('/docentes', methods = ["GET","POST"])
 def docentes():
@@ -40,7 +75,14 @@ def inscripciones():
 
 @app.route('/alumno1', methods = ["GET","POST"])
 def alumno1():
-    return render_template('alumno1.html')
+    # Verificar si el usuario ha iniciado sesión
+    if 'username' in session:
+        # Mostrar la página de "home"
+        return render_template('alumno1.html')
+    else:
+        # Redirigir al usuario al formulario de inicio de sesión
+        return redirect(url_for('login'))
+    
 
 @app.route('/about', methods = ["GET","POST"])
 def about():

@@ -20,23 +20,26 @@
                 <div class="row d-flex justify-content-center">
                     <div class="col-lg-8">
                         <h2 class="fw-bold mb-5">Acceso al Sistema</h2>
-                        <form>
+                        {% if error %}
+                        <p style="color: red">{{ error }}</p>
+                        {% endif %}
+                        <form action="/login" method="post">
                             <!-- Email input -->
                             <div class="form-outline mb-4">
-                                <input type="Usuario" id="form3Example3" class="form-control" />
-                                <label class="form-label" for="form3Example3">Usuario</label>
+                                <input type="text" id="username" name="username" class="form-control" />
+                                <label class="form-label" for="form3Example3">Cédula</label>
                             </div>
 
                             <!-- Password input -->
                             <div class="form-outline mb-4">
-                                <input type="password" id="form3Example4" class="form-control" />
+                                <input type="password" id="password" name="password" class="form-control" />
                                 <label class="form-label" for="form3Example4">Contaseña</label>
                             </div>
 
 
 
                             <!-- Submit button -->
-                            <button type="submit" class="btn btn-dark btn-block mb-4">Iniciar sesión</button>
+                            <button type="submit" value="Submit" class="btn btn-dark btn-block mb-4">Iniciar sesión</button>
 
 
                         </form>
