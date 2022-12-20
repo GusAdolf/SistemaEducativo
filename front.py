@@ -63,10 +63,10 @@ def login():
         # Si se encuentra un usuario válido, iniciar sesión
         if result:
             session['username'] = username
-            return render_template('alumno1.html', resultado = result)
+            return render_template('alumno1.html')
         elif result2:
             session['username'] = username
-            return render_template('maestro.html',resultado = result2)
+            return render_template('maestro.html')
         else:
             # Si no se encuentra un usuario válido, mostrar un mensaje de error
             error = 'Cédula o contraseña invalidas'
@@ -83,22 +83,20 @@ def inscribir_estudiante():
     apellido = request.form['apellido']
     cedula = request.form['cedula']
     contraseña = request.form['contrasenia']
-    machine = request.form.get('machine')
-    vision = request.form.get('vision')
-    progra = request.form.get('programacion')
-    ingenieria = request.form.get('ingenieria')
+    curso = request.form.get('inlineRadioOptions')
     # conectarse a la base de datos
     cur = connection.cursor()
 
     # ejecutar la consulta INSERT con parámetros de sustitución
-    cur.execute('''INSERT INTO estudiante (cedula_est, contrasenia, nombre, apellido, curso) VALUES (%s, %s, %s,%s,%s)''', (cedula, contraseña, nombre,apellido,machine))
+    cur.execute('''INSERT INTO estudiante (cedula_est, contrasenia, nombre, apellido, curso) VALUES (%s, %s, %s,%s,%s)''', (cedula, contraseña, nombre,apellido,curso))
     connection.ping()
     # confirmar la transacción
     connection.commit()
+    connection.ping()
     cur.close()
     connection.close()
 
-    return 'Usuario agregado exitosamente'
+    return render_template('insc.html',result = 'Usuario agregado exitosamente. Inicie Sesión')
 
 
 @app.route('/docentes', methods = ["GET","POST"])
