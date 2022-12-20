@@ -11,9 +11,14 @@ app = Flask(__name__)
 IMG_FOLDER = os.path.join('static', 'img')
 app.secret_key = 'my_secret_key'
 app.config['UPLOAD_FOLDER'] = IMG_FOLDER
+
+ # Establecer la conexión a la base de datos
+connection = pymysql.connect(host='db4free.net',
+                                user='admin12345',
+                                password='admin12345',
+                                db='sisedu12345')
+
 ##servicio web
-
-
 @app.route('/', methods = ["GET","POST"])
 def home():
     fondoP = os.path.join(app.config['UPLOAD_FOLDER'], 'cat-4.jpg')
@@ -34,20 +39,21 @@ def login():
         # Obtener los datos del formulario
         username = request.form['username']
         password = request.form['password']
-
-        # Establecer la conexión a la base de datos
-        connection = pymysql.connect(host='db4free.net',
-                                     user='admin12345',
-                                     password='admin12345',
-                                     db='sisedu12345')
-
         # Crear un cursor
         cursor = connection.cursor()
 
         # Verificar si el nombre de usuario y la contraseña son válidos
-        query = 'SELECT * FROM usuarios WHERE cedula = %s AND password = %s'
+        query = 'SELECT nombre, apellido FROM estudiante WHERE cedula_est = %s AND contrasenia = %s'
         cursor.execute(query, (username, password))
         result = cursor.fetchone()
+        
+        # Crear un cursor
+        cursor2 = connection.cursor()
+
+        # Verificar si el nombre de usuario y la contraseña son válidos
+        query2 = 'SELECT nombre, apellido FROM profesor WHERE cedula_profesor = %s AND contrasenia = %s'
+        cursor2.execute(query2, (username, password))
+        result2 = cursor2.fetchone()
 
         # Cerrar la conexión
         connection.close()
@@ -55,16 +61,44 @@ def login():
         # Si se encuentra un usuario válido, iniciar sesión
         if result:
             session['username'] = username
-            return redirect(url_for('alumno1'))
-
-        # Si no se encuentra un usuario válido, mostrar un mensaje de error
-        error = 'Invalid username or password'
+            return render_template('alumno1.html', resultado = result)
+        elif result2:
+            session['username'] = username
+            return render_template('maestro.html',resultado = result2)
+        else:
+            # Si no se encuentra un usuario válido, mostrar un mensaje de error
+            error = 'Cédula o contraseña invalidas'
     else:
         error = None
 
     # Mostrar el formulario de inicio de sesión
     return render_template('login.html', error=error)
     
+@app.route('/inscribir_estudiante', methods=['POST'])
+def inscribir_estudiante():
+    # obtener los datos del formulario
+    nombre = request.form['nombre']
+    apellido = request.form['apellido']
+    cedula = request.form['cedula']
+    contraseña = request.form['contrasenia']
+    machine = request.form.get('machine')
+    vision = request.form.get('vision')
+    progra = request.form.get('programacion')
+    ingenieria = request.form.get('ingenieria')
+    # conectarse a la base de datos
+    cur = connection.cursor()
+
+    # ejecutar la consulta INSERT con parámetros de sustitución
+    cur.execute('''INSERT INTO estudiante (cedula_est, contrasenia, nombre, apellido, curso) VALUES (%s, %s, %s,%s,%s)''', (cedula, contraseña, nombre,apellido,machine))
+
+    # confirmar la transacción
+    connection.commit()
+    cur.close()
+    connection.close()
+
+    return 'Usuario agregado exitosamente'
+
+
 @app.route('/docentes', methods = ["GET","POST"])
 def docentes():
     return render_template('docentes.html')
@@ -100,6 +134,14 @@ def info():
 @app.route('/calificaciones', methods = ["GET","POST"])
 def calificaciones():
     return render_template('calificaciones.html')
+
+@app.route('/maestro', methods = ["GET","POST"])
+def maestro():
+    return render_template('maestro.html')
+
+@app.route('/calificar', methods = ["GET","POST"])
+def calificar():
+    return render_template('calificar_estudiantes.html')
 
 ##ejecutar el servicio web
 if __name__=='__main__':

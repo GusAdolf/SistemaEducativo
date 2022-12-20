@@ -2,87 +2,60 @@
 <div class="container">
     <div class="container-xxl py-5">
         <h1 class="h1 center"> Formulario de Inscripción </h1>
-        <form>
+        <form action="/inscribir_estudiante" method="post">
             <div class="row">
                 <label for=""><b>Informacion Basica:</b></label>
                 <div class="col">
-                    <input type="text" class="form-control" placeholder="Nombre">
+                    <input type="text" class="form-control" placeholder="Nombre" id="nombre" name="nombre">
                 </div>
                 <div class="col">
-                    <input type="text" class="form-control" placeholder="Apellido">
+                    <input type="text" class="form-control" placeholder="Apellido" id="apellido" name="apellido">
                 </div>
-                <div class="col">
-                    <input type="text" class="form-control" placeholder="Cedula">
-
-                </div>
-
             </div>
-            <div class="form-group">
-                <label for="">Email</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                <small id="emailHelp" class="form-text text-muted">Nunca compartiremos tu correo electrónico con nadie más</small>
-
+            <br>
+            <div class="row">
+                <label for=""><b>Informacion de la cuenta:</b></label>
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="Cedula" id="cedula" name="cedula">
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="Contraseña" id="contrasenia" name="contrasenia">
+                </div>
             </div>
             <br>
             <div class="form-group">
-                <label for=""><b>Informacion de Residencia</b></label>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="inputCity">Pais</label>
-                        <select id="inputCity" class="form-control">
-                    <option selected>Seleccione</option>
-                    <option>Ecuador</option>
-                    
-                  </select>
-
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="inputState">Ciudad</label>
-                        <select id="inputState" class="form-control">
-                    <option selected>Seleccione</option>
-                    <option>Quito</option>
-                    <option>Guayaquil</option>
-                    <option>Cuenca</option>
-                  </select>
-
-
-                    </div>
-
-                </div>
-
-                <br> <br>
                 <div class="form-group">
                     <label for=""><b>Elija el curso a inscribirse</b></label>
                     <br> <br>
                     <div class="form-check form-check-inline">
 
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                        <input class="form-check-input" type="radio" name="machine" id="machine" value="option1">
                         <label class="form-check-label" for="inlineRadio1">Machine Learning</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                        <input class="form-check-input" type="radio" name="vision" id="vision" value="option2">
                         <label class="form-check-label" for="inlineRadio2">Vision Artificial</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+                        <input class="form-check-input" type="radio" name="programacion" id="programacion" value="option3">
                         <label class="form-check-label" for="inlineRadio3">Programacion</label>
                     </div>
 
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4">
+                        <input class="form-check-input" type="radio" name="ingenieria" id="ingenieria" value="option4">
                         <label class="form-check-label" for="inlineRadio4">Ingenieria de Software</label>
                     </div>
                 </div>
                 <br>
                 <br>
                 <div class="text-center">
-                    <button type="submit" class="btn btn-dark text-center">Enviar</button>
+                    <button type="submit" value="submit" class="btn btn-dark text-center">Enviar</button>
                 </div>
-
+            </div>
         </form>
 
-        </div>
     </div>
+</div>
 </div>
 
 {% endblock %}
