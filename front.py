@@ -88,7 +88,7 @@ def login():
     # Mostrar el formulario de inicio de sesión
     return render_template('login.html', error=error)
     
-@app.route('/inscribir_estudiante', methods=['POST'])
+@app.route('/inscribir_estudiante', methods = ["GET","POST"])
 def inscribir_estudiante():
     # obtener los datos del formulario
     nombre = request.form['nombre']
@@ -110,6 +110,49 @@ def inscribir_estudiante():
 
     return render_template('insc.html',result = 'Usuario agregado exitosamente. Inicie Sesión')
 
+@app.route('/inscripcion_estudiante_admin', methods = ["GET","POST"])
+def inscripcion_estudiante_admin():
+    # obtener los datos del formulario
+    nombre = request.form['nombre']
+    apellido = request.form['apellido']
+    cedula = request.form['cedula']
+    contraseña = request.form['contrasenia']
+    curso = request.form.get('inlineRadioOptions')
+    # conectarse a la base de datos
+    cur = connection.cursor()
+
+    # ejecutar la consulta INSERT con parámetros de sustitución
+    cur.execute('''INSERT INTO estudiante (id_est, contrasenia, nombre, apellido, curso) VALUES (%s, %s, %s,%s,%s)''', (cedula, contraseña, nombre,apellido,curso))
+    connection.ping()
+    # confirmar la transacción
+    connection.commit()
+    connection.ping()
+    cur.close()
+    connection.close()
+
+    return render_template('inscribir_estudiante.html',result = 'Usuario agregado exitosamente. Inicie Sesión')
+
+@app.route('/inscripcion_docente_admin', methods = ["GET","POST"])
+def inscripcion_docente_admin():
+    # obtener los datos del formulario
+    nombre = request.form['nombre']
+    apellido = request.form['apellido']
+    cedula = request.form['cedula']
+    contraseña = request.form['contrasenia']
+    curso = request.form.get('inlineRadioOptions')
+    # conectarse a la base de datos
+    cur = connection.cursor()
+
+    # ejecutar la consulta INSERT con parámetros de sustitución
+    cur.execute('''INSERT INTO profesor (id_profesor, contrasenia, nombre, apellido, curso_dirigido) VALUES (%s, %s, %s,%s,%s)''', (cedula, contraseña, nombre,apellido,curso))
+    connection.ping()
+    # confirmar la transacción
+    connection.commit()
+    connection.ping()
+    cur.close()
+    connection.close()
+
+    return render_template('inscribir_docente.html',result = 'Usuario agregado exitosamente. Inicie Sesión')
 
 @app.route('/docentes', methods = ["GET","POST"])
 def docentes():
