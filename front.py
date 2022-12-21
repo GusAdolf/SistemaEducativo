@@ -57,6 +57,15 @@ def login():
         cursor2.execute(query2, (username, password))
         result2 = cursor2.fetchone()
 
+        # Crear un cursor3
+        cursor3 = connection.cursor()
+
+        # Verificar si el nombre de usuario y la contraseña son válidos
+        query3 = 'SELECT * FROM administrador WHERE id_administrador = %s AND contrasenia = %s'
+        connection.ping()
+        cursor3.execute(query3, (username, password))
+        result3 = cursor3.fetchone()
+
         # Cerrar la conexión
         connection.close()
 
@@ -67,6 +76,9 @@ def login():
         elif result2:
             session['username'] = username
             return render_template('maestro.html')
+        elif result3:
+            session['username'] = username
+            return render_template('administrador.html')
         else:
             # Si no se encuentra un usuario válido, mostrar un mensaje de error
             error = 'Cédula o contraseña invalidas'
