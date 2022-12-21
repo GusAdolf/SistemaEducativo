@@ -52,10 +52,12 @@ def login():
         cursor2 = connection.cursor()
 
         # Verificar si el nombre de usuario y la contraseña son válidos
-        query2 = 'SELECT nombre, apellido FROM profesor WHERE id_profesor = %s AND contrasenia = %s'
+        query2 = 'SELECT id_profesor, nombre, apellido FROM profesor WHERE id_profesor = %s AND contrasenia = %s'
         connection.ping()
         cursor2.execute(query2, (username, password))
         result2 = cursor2.fetchone()
+        global valor_id 
+        valor_id =  result2[0]
 
         # Crear un cursor3
         cursor3 = connection.cursor()
@@ -197,7 +199,15 @@ def info():
 
 @app.route('/calificaciones', methods = ["GET","POST"])
 def calificaciones():
-    return render_template('calificaciones.html')
+    # Crear un cursor
+    cursor = connection.cursor()
+    # Verificar si el nombre de usuario y la contraseña son válidos
+    query = 'select e.nombre, e.apellido from estudiante AS e where e.curso = (SELECT p.curso_dirigido from profesor AS p where p.id_profesor = %s);'
+    connection.ping()
+    cursor.execute(query, (valor_id))
+    result = cursor.fetchall()
+    return render_template('calificaciones.html', resultado = result)
+   
 
 @app.route('/maestro', methods = ["GET","POST"])
 def maestro():
