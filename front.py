@@ -128,6 +128,7 @@ def inscripcion_estudiante_admin():
     connection.commit()
     connection.ping()
     cur.close()
+    connection.ping()
     connection.close()
 
     return render_template('inscribir_estudiante.html',result = 'Usuario agregado exitosamente. Inicie Sesión')
@@ -150,6 +151,7 @@ def inscripcion_docente_admin():
     connection.commit()
     connection.ping()
     cur.close()
+    connection.ping()
     connection.close()
 
     return render_template('inscribir_docente.html',result = 'Usuario agregado exitosamente. Inicie Sesión')
@@ -211,10 +213,12 @@ def administrador():
 
 @app.route('/inscribirEstudiante', methods = ["GET","POST"])
 def inscribirEst():
+    connection.ping()
     return render_template('inscribir_estudiante.html')
 
 @app.route('/inscribirDocente', methods = ["GET","POST"])
 def inscribirDoce():
+    connection.ping()
     return render_template('inscribir_docente.html')
 
 ##ejecutar el servicio web
