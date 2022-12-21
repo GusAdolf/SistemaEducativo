@@ -156,9 +156,7 @@ def inscripcion_docente_admin():
 
     return render_template('inscribir_docente.html',result = 'Usuario agregado exitosamente. Inicie Sesión')
 
-@app.route('/docentes', methods = ["GET","POST"])
-def docentes():
-    return render_template('docentes.html')
+
 
 @app.route('/inscripciones', methods = ["GET","POST"])
 def inscripciones():
@@ -183,6 +181,15 @@ def about():
     jona = os.path.join(app.config['UPLOAD_FOLDER'], 'jona.jpg')
     alexis = os.path.join(app.config['UPLOAD_FOLDER'], 'alexis.jpeg')
     return render_template('about.html',cami=cami, joss=joss , gus=gus, jona=jona,alexis=alexis)
+
+@app.route('/docentes', methods = ["GET","POST"])
+def docentes():
+    profe1 = os.path.join(app.config['UPLOAD_FOLDER'], 'profe1.jpg')
+    profe2 = os.path.join(app.config['UPLOAD_FOLDER'], 'profe2.jpg')
+    profe3 = os.path.join(app.config['UPLOAD_FOLDER'], 'profe3.jpg')
+    profe4 = os.path.join(app.config['UPLOAD_FOLDER'], 'profe4.jpg')
+    
+    return render_template('docentes.html',profe1=profe1, profe2=profe2 , profe3=profe3, profe4=profe4)
 
 @app.route('/info', methods = ["GET","POST"])
 def info():
