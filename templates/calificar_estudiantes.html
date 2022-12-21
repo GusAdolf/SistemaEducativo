@@ -54,17 +54,56 @@
                 <a href={{ url_for( 'maestro' ) }} class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Volver al aula virtual<i class="fa fa-arrow-right ms-3"></i></a>
             </div>
         </nav>
-        <!-- JavaScript Libraries -->
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="static/lib/wow/wow.min.js"></script>
-        <script src="static/lib/wow/wow.min.js"></script>
-        <script src="static/lib/easing/easing.min.js"></script>
-        <script src="static/lib/waypoints/waypoints.min.js"></script>
-        <script src="static/lib/owlcarousel/owl.carousel.min.js"></script>
+        <div class="container-xxl py-5">
+            <h1 class="h1 center"> Registro de calificaciones </h1>
+            <form action="/calificar" method="post">
+                <div class="row">
+                    <label for=""><b>Datos del Estudiantes:</b></label>
+                    <textarea name="" id="" cols="30" rows="10">SALDRA EL NOMBRE DEL ESTUDIANTE </textarea>
 
-        <!-- Template Javascript -->
-        <script src="static/js/main.js"></script>
+                </div>
+                <br>
+                <div class="row">
+                    <label for=""><b>Ingrese las calificaciones:</label>
+                    <div class="col-3">
+                        <br>
+                        <label class="form-check-label" for="inlineRadio4">Nota 1</label>
+                        <input type="number" class="form-control " placeholder="Nota 1 " id="calificacion_registro1 " name="calificacion_registro1 ">
+                    </div>
+
+                    <div class="col-3">
+                        <br>
+                        <label class="form-check-label" for="inlineRadio4">Nota 2</label>
+                        <input type="number" class="form-control " placeholder="Nota 2 " id="calificacion_registro2 " name="calificacion_registro2 ">
+                    </div>
+                    <div class="col-3">
+                        <br>
+                        <label class="form-check-label" for="inlineRadio4">Nota Final</label>
+                        <input type="number" class="form-control " placeholder="Nota Final " id="calificacion_registro3 " name="calificacion_registro3 ">
+                    </div>
+                </div>
+                <br>
+                <div class="text-right ">
+
+                    <button type="submit " value="submit " class="btn btn-dark text-sm-start">Registrar</button>
+                </div>
+                <div class="text-center ">
+                    <h2 style="color: brown; ">{{result}}</h2>
+                </div>
+        </div>
+        </form>
+    </div>
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js "></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js "></script>
+    <script src="static/lib/wow/wow.min.js "></script>
+    <script src="static/lib/wow/wow.min.js "></script>
+    <script src="static/lib/easing/easing.min.js "></script>
+    <script src="static/lib/waypoints/waypoints.min.js "></script>
+    <script src="static/lib/owlcarousel/owl.carousel.min.js "></script>
+
+    <!-- Template Javascript -->
+    <script src="static/js/main.js "></script>
 </body>
 
 </html>
