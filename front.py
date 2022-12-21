@@ -43,7 +43,7 @@ def login():
         cursor = connection.cursor()
 
         # Verificar si el nombre de usuario y la contraseña son válidos
-        query = 'SELECT nombre, apellido FROM estudiante WHERE cedula_est = %s AND contrasenia = %s'
+        query = 'SELECT nombre, apellido FROM estudiante WHERE id_est = %s AND contrasenia = %s'
         connection.ping()
         cursor.execute(query, (username, password))
         result = cursor.fetchone()
@@ -52,7 +52,7 @@ def login():
         cursor2 = connection.cursor()
 
         # Verificar si el nombre de usuario y la contraseña son válidos
-        query2 = 'SELECT nombre, apellido FROM profesor WHERE cedula_profesor = %s AND contrasenia = %s'
+        query2 = 'SELECT nombre, apellido FROM profesor WHERE id_profesor = %s AND contrasenia = %s'
         connection.ping()
         cursor2.execute(query2, (username, password))
         result2 = cursor2.fetchone()
@@ -88,7 +88,7 @@ def inscribir_estudiante():
     cur = connection.cursor()
 
     # ejecutar la consulta INSERT con parámetros de sustitución
-    cur.execute('''INSERT INTO estudiante (cedula_est, contrasenia, nombre, apellido, curso) VALUES (%s, %s, %s,%s,%s)''', (cedula, contraseña, nombre,apellido,curso))
+    cur.execute('''INSERT INTO estudiante (id_est, contrasenia, nombre, apellido, curso) VALUES (%s, %s, %s,%s,%s)''', (cedula, contraseña, nombre,apellido,curso))
     connection.ping()
     # confirmar la transacción
     connection.commit()
