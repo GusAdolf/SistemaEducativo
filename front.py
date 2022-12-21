@@ -143,6 +143,18 @@ def maestro():
 def calificar():
     return render_template('calificar_estudiantes.html')
 
+@app.route('/administrador', methods = ["GET","POST"])
+def administrador():
+    return render_template('administrador.html')
+
+@app.route('/inscribirEstudiante', methods = ["GET","POST"])
+def inscribirEst():
+    return render_template('inscribir_estudiante.html')
+
+@app.route('/inscribirDocente', methods = ["GET","POST"])
+def inscribirDoce():
+    return render_template('inscribir_docente.html')
+
 ##ejecutar el servicio web
 if __name__=='__main__':
     #OJO QUITAR EL DEBUG EN PRODUCCION
