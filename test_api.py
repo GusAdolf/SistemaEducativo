@@ -6,6 +6,7 @@ try:
 except Exception as e:
     print("Módulos faltantes {}".format(e))
 
+#CLASE PARA REALIZAR LAS PRUEBAS UNITARIAS POR FUNCIONES
 class TestAPI(unittest.TestCase):
         URL = "http://127.0.0.1:5000/"
 
