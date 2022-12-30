@@ -1,5 +1,10 @@
-import unittest
-import requests
+try:
+    from front import app
+    import unittest
+    import requests
+
+except Exception as e:
+    print("Módulos faltantes {}".format(e))
 
 class TestAPI(unittest.TestCase):
         URL = "http://127.0.0.1:5000/"
@@ -57,10 +62,6 @@ class TestAPI(unittest.TestCase):
             resp = requests.get(self.URL+"/info")
             self.assertEqual(resp.status_code,200)
             print("Test 10 Informacion completado")
-        
-        #def test_updateInscripciones(self):
-        #    resp = requests.put(self.URL + "/inscripciones", json=self.update_data)
-        #    self.assertEqual(resp.json()['name'],self.update_data['name'])
 
 if __name__ == "__main__":
     tester = TestAPI()
@@ -74,4 +75,3 @@ if __name__ == "__main__":
     tester.test_admin_inscEstudiante()
     tester.test_admin_inscDocente()
     tester.test_info()
-    #tester.test_updateInscripciones()
