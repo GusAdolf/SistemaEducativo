@@ -43,36 +43,49 @@ def login():
         cursor = connection.cursor()
 
         # Verificar si el nombre de usuario y la contraseña son válidos
-        query = 'SELECT nombre, apellido FROM estudiante WHERE id_est = %s AND contrasenia = %s'
-        connection.ping()
-        cursor.execute(query, (username, password))
-        result = cursor.fetchone()
+        try:
+            query = 'SELECT nombre, apellido FROM estudiante WHERE id_est = %s AND contrasenia = %s'
+            connection.ping()
+            cursor.execute(query, (username, password))
+            result1 = cursor.fetchone()
+        except:
+            print('sin resultado 1')
+            pass
         
         # Crear un cursor
         cursor2 = connection.cursor()
 
         # Verificar si el nombre de usuario y la contraseña son válidos
-        query2 = 'SELECT id_profesor, nombre, apellido FROM profesor WHERE id_profesor = %s AND contrasenia = %s'
-        connection.ping()
-        cursor2.execute(query2, (username, password))
-        result2 = cursor2.fetchone()
-        global valor_id 
-        valor_id =  result2[0]
+        try:
+            query2 = 'SELECT id_profesor, nombre, apellido FROM profesor WHERE id_profesor = %s AND contrasenia = %s'
+            connection.ping()
+            cursor2.execute(query2, (username, password))
+            result2 = cursor2.fetchone()
+            global valor_id 
+            valor_id =  result2[0]
+        except:
+            print('sin resultado 2')
+            pass
 
         # Crear un cursor3
         cursor3 = connection.cursor()
 
         # Verificar si el nombre de usuario y la contraseña son válidos
-        query3 = 'SELECT * FROM administrador WHERE id_administrador = %s AND contrasenia = %s'
-        connection.ping()
-        cursor3.execute(query3, (username, password))
-        result3 = cursor3.fetchone()
+        try:
+
+            query3 = 'SELECT * FROM administrador WHERE id_administrador = %s AND contrasenia = %s'
+            connection.ping()
+            cursor3.execute(query3, (username, password))
+            result3 = cursor3.fetchone()
+        except:
+            print('sin resultado 3')
+            pass
 
         # Cerrar la conexión
         connection.close()
 
         # Si se encuentra un usuario válido, iniciar sesión
-        if result:
+        if result1:
             session['username'] = username
             return render_template('alumno1.html')
         elif result2:
@@ -230,6 +243,10 @@ def inscribirEst():
 def inscribirDoce():
     connection.ping()
     return render_template('inscribir_docente.html')
+
+@app.route('/notas_estudiantes', methods = ["GET","POST"])
+def notas_estudiantes():
+    return render_template('notas_estudiantes.html')
 
 ##ejecutar el servicio web
 if __name__=='__main__':

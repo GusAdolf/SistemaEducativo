@@ -51,18 +51,12 @@
         <!-- Navbar Start -->
         <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
             <div class="collapse navbar-collapse" id="navbarCollapse">
-                <a href={{ url_for( 'maestro' ) }} class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Volver al aula virtual<i class="fa fa-arrow-right ms-3"></i></a>
+                <a href={{ url_for( 'alumno1' ) }} class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Volver al aula virtual<i class="fa fa-arrow-right ms-3"></i></a>
             </div>
         </nav>
         <div class="container-xxl py-5">
-            <h1 class="h1 center"> Registro de calificaciones </h1>
+            <h1 class="h1 center"> Calificaciones </h1>
             <form action="/calificar" method="post">
-                <div class="row">
-                    <label for=""><b>Datos del Estudiantes:</b></label>
-                    <textarea name="" id="" cols="30" rows="10">SALDRA EL NOMBRE DEL ESTUDIANTE </textarea>
-
-                </div>
-                <br>
                 <div class="row">
                     <label for=""><b>Ingrese las calificaciones:</label>
                     <div class="col-3">
