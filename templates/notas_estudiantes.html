@@ -56,35 +56,11 @@
         </nav>
         <div class="container-xxl py-5">
             <h1 class="h1 center"> Calificaciones </h1>
-            <form action="/calificar" method="post">
-                <div class="row">
-                    <label for=""><b>Ingrese las calificaciones:</label>
-                    <div class="col-3">
-                        <br>
-                        <label class="form-check-label" for="inlineRadio4">Nota 1</label>
-                        <input type="number" class="form-control " placeholder="Nota 1 " id="calificacion_registro1 " name="calificacion_registro1 ">
-                    </div>
+            <br>
+            <h3> Nota 1 : {{resultado[0]}}</h3>
+            <h3> Nota 2 : {{resultado[1]}}</h3>
+            <h3> Nota Final : {{resultado[2]}}</h3>
 
-                    <div class="col-3">
-                        <br>
-                        <label class="form-check-label" for="inlineRadio4">Nota 2</label>
-                        <input type="number" class="form-control " placeholder="Nota 2 " id="calificacion_registro2 " name="calificacion_registro2 ">
-                    </div>
-                    <div class="col-3">
-                        <br>
-                        <label class="form-check-label" for="inlineRadio4">Nota Final</label>
-                        <input type="number" class="form-control " placeholder="Nota Final " id="calificacion_registro3 " name="calificacion_registro3 ">
-                    </div>
-                </div>
-                <br>
-                <div class="text-right ">
-
-                    <button type="submit " value="submit " class="btn btn-dark text-sm-start">Registrar</button>
-                </div>
-                <div class="text-center ">
-                    <h2 style="color: brown; ">{{result}}</h2>
-                </div>
-            </form>
         </div>
     </div>
     <!-- JavaScript Libraries -->

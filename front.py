@@ -43,10 +43,12 @@ def login():
 
         # Verificar si el nombre de usuario y la contraseña son válidos
         try:
-            query = 'SELECT nombre, apellido FROM estudiante WHERE id_est = %s AND contrasenia = %s'
+            query = 'SELECT id_est, nombre, apellido FROM estudiante WHERE id_est = %s AND contrasenia = %s'
             connection.ping()
             cursor.execute(query, (username, password))
             result1 = cursor.fetchone()
+            global cedula_est
+            cedula_est = result1[0]
         except:
             print('sin resultado 1')
             pass
@@ -109,7 +111,7 @@ def inscribir_estudiante():
     apellido = request.form['apellido']
     cedula = request.form['cedula']
     contraseña = request.form['contrasenia']
-    curso = request.form.get('inlineRadioOptions')
+    curso = request.form.get("inlineRadioOptions")
     # conectarse a la base de datos
     cur = connection.cursor()
 
@@ -217,8 +219,11 @@ def calificaciones():
     query = 'select e.nombre, e.apellido , e.id_est from estudiante AS e where e.curso = (SELECT p.curso_dirigido from profesor AS p where p.id_profesor = %s);'
     connection.ping()
     cursor.execute(query, (valor_id))
-    result = cursor.fetchall()
-    return render_template('calificaciones.html', resultado = result)
+    global estudiantes 
+    estudiantes = cursor.fetchall()
+    global tamaño_estudiantes 
+    tamaño_estudiantes = len(estudiantes)
+    return render_template('calificaciones.html', resultado = estudiantes, resultado2 = tamaño_estudiantes)
    
 
 @app.route('/maestro', methods = ["GET","POST"])
@@ -229,10 +234,41 @@ def maestro():
 def calificar():
     nota1 = request.form["calificacion_registro1"]
     nota2 = request.form["calificacion_registro2"]
-    nota3 = (nota1+nota2)/2
+    nota_final = (int(nota1)+int(nota2))/2
+    nombre_completo = request.form.get("inlineRadioOptions")
+    print('este es el nombre ', nombre_completo)
+    nombre_split = nombre_completo.split(" ")
+    nombre = nombre_split[0]
+    apellido = nombre_split[1]
+
+    # Crear un cursor
+    cursor = connection.cursor()
+    # Verificar si el nombre de usuario y la contraseña son válidos
+    try:
+        query = 'select e.id_est, e.curso from estudiante AS e where e.nombre = %s and e.apellido = %s;'
+        connection.ping()
+        cursor.execute(query, (nombre, apellido))
+        result = cursor.fetchone()
+        id_est = result[0]
+        curso = result[1]
+    except:
+        pass
+    
+    # conectarse a la base de datos
+    cur2 = connection.cursor()
+
+    # ejecutar la consulta INSERT con parámetros de sustitución
+    cur2.execute('''INSERT INTO calificaciones (id_est, nota1, nota2, nota_final, curso) VALUES (%s, %s, %s,%s,%s)''', (id_est, nota1,nota2,nota_final,curso))
+    connection.ping()
+    # confirmar la transacción
+    connection.commit()
+    connection.ping()
+    cur2.close()
+    connection.ping()
+    connection.close()
     
     
-    return render_template('calificar_estudiantes.html')
+    return render_template('calificaciones.html', resultado = estudiantes, resultado2 = tamaño_estudiantes)
 
 @app.route('/administrador', methods = ["GET","POST"])
 def administrador():
@@ -250,7 +286,15 @@ def inscribirDoce():
 
 @app.route('/notas_estudiantes', methods = ["GET","POST"])
 def notas_estudiantes():
-    return render_template('notas_estudiantes.html')
+    # Crear un cursor
+    cursor = connection.cursor()
+    # Verificar si el nombre de usuario y la contraseña son válidos
+    query = 'select e.nota1, e.nota2 , e.nota_final from calificaciones AS e where e.id_est = %s;'
+    connection.ping()
+    cursor.execute(query, (cedula_est))
+    result = cursor.fetchone()
+    return render_template('notas_estudiantes.html', resultado = result)
+
 
 ##ejecutar el servicio web
 if __name__=='__main__':

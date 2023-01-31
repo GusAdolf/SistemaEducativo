@@ -56,15 +56,16 @@
         </nav>
 
         <body>
-            <h1>Estudiantes</h1>
+            <form action="/calificar" method="post">
+                <h1>Estudiantes</h1>
 
-            {% for usuario in resultado %}
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="{{usuario[2]}}" value=" {{usuario[2]}} ">
-            <label class="form-check-label" for="inlineRadio1">{{usuario[0]}} {{usuario[1]}} {{usuario[2]}}</label> {% endfor %}
+                {% for usuario in range(resultado2) %}
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="{{resultado[usuario][0]}} {{resultado[usuario][1]}}" value="{{resultado[usuario][0]}} {{resultado[usuario][1]}}">
+                <label class="form-check-label" for="inlineRadio{{usuario+1}}">{{resultado[usuario][0]}} {{resultado[usuario][1]}}</label> {% endfor %}
 
-            <div id="contenedor"></div>
+                <div id="contenedor"></div>
 
-
+            </form>
 
             <!---
             
@@ -77,7 +78,7 @@
                 var valor = radioButton.value;
 
                 document.getElementById('opciones').addEventListener('change', function() {
-                    container.innerHTML = '<form action="/calificar" method="post">  <div class="row">  <label for=""><b>Ingrese las calificaciones:</label>   <div class="col-3">   <br>      <label class="form-check-label" for="inlineRadio4">Nota 1</label>    <input type="number" class="form-control " placeholder="Nota 1 " id="calificacion_registro1 " name="calificacion_registro1 ">   </div>     <div class="col-3">     <br>     <label class="form-check-label" for="inlineRadio4">Nota 2</label>        <input type="number" class="form-control " placeholder="Nota 2 " id="calificacion_registro2 " name="calificacion_registro2 ">       </div>     <div class="col-3">   <br>  <label class="form-check-label" for="inlineRadio4">Nota Final</label>      <input type="number" class="form-control " placeholder="Nota Final " id="calificacion_registro3 " name="calificacion_registro3 ">      </div>  </div>    <br>  <div class="text-right ">  <button type="submit " value="submit " class="btn btn-dark text-sm-start">Registrar</button>    </div>             <div class="text-center ">             <h2 style="color: brown; ">{{result}}</h2>       </div>              </form>';
+                    container.innerHTML = ' <div class="row">  <label for=""><b>Ingrese las calificaciones:</label>   <div class="col-3">   <br>      <label class="form-check-label" for="inlineRadio4">Nota 1</label>    <input type="number" class="form-control " placeholder="Nota 1 " id="calificacion_registro1 " name="calificacion_registro1 ">   </div>     <div class="col-3">     <br>     <label class="form-check-label" for="inlineRadio4">Nota 2</label>        <input type="number" class="form-control " placeholder="Nota 2 " id="calificacion_registro2 " name="calificacion_registro2 ">       </div>     <div class="col-3">   <br>  <label class="form-check-label" for="inlineRadio4">Nota Final</label>      <input type="number" class="form-control " placeholder="Nota Final " id="calificacion_registro3 " name="calificacion_registro3 ">      </div>  </div>    <br>  <div class="text-right ">  <button type="submit " value="submit " class="btn btn-dark text-sm-start">Registrar</button>    </div>             <div class="text-center ">             <h2 style="color: brown; ">{{result}}</h2>       </div>              </form>';
                 });
 
 
@@ -85,20 +86,19 @@
             </script>
 
         -->
-        <script>
-            const container = document.getElementById("contenedor");
-            const radioButtons = document.querySelectorAll("input[type='radio']");
-                       
+            <script>
+                const container = document.getElementById("contenedor");
+                const radioButtons = document.querySelectorAll("input[type='radio']");
+
                 for (let i = 0; i < radioButtons.length; i++) {
                     radioButtons[i].addEventListener("click", function() {
-                        
-                        container.innerHTML = '<form action="/calificar" method="post">  <div class="row">  <label for=""><b>Ingrese las calificaciones:</label>   <div class="col-3">   <br>      <label class="form-check-label" for="inlineRadio4">Nota 1</label>    <input type="number" class="form-control " placeholder="Nota 1 " id="calificacion_registro1" name="calificacion_registro1">   </div>     <div class="col-3">     <br>     <label class="form-check-label" for="inlineRadio4">Nota 2</label>        <input type="number" class="form-control " placeholder="Nota 2 " id="calificacion_registro2" name="calificacion_registro2">       </div>           <br>  <div class="text-right ">  <button type="submit " value="submit " class="btn btn-dark text-sm-start">Registrar</button>    </div>             <div class="text-center ">             <h2 style="color: brown; ">{{result}}</h2>       </div>              </form>';
-                      
+
+                        container.innerHTML = '<div class="row">  <label for=""><b>Ingrese las calificaciones:</label>   <div class="col-3">   <br>      <label class="form-check-label" for="inlineRadio4">Nota 1</label>    <input type="number" class="form-control " placeholder="Nota 1 " id="calificacion_registro1" name="calificacion_registro1">   </div>     <div class="col-3">     <br>     <label class="form-check-label" for="inlineRadio4">Nota 2</label>        <input type="number" class="form-control " placeholder="Nota 2 " id="calificacion_registro2" name="calificacion_registro2">       </div>           <br>  <div class="text-right ">  <button type="submit " value="submit " class="btn btn-dark text-sm-start">Registrar</button>    </div>             <div class="text-center ">             <h2 style="color: brown; ">{{result}}</h2>       </div>';
+
                     });
-                
-            } ;
-        
-        </script>
+
+                };
+            </script>
 
 
 
