@@ -227,6 +227,11 @@ def maestro():
 
 @app.route('/calificar', methods = ["GET","POST"])
 def calificar():
+    nota1 = request.form["calificacion_registro1"]
+    nota2 = request.form["calificacion_registro2"]
+    nota3 = (nota1+nota2)/2
+    
+    
     return render_template('calificar_estudiantes.html')
 
 @app.route('/administrador', methods = ["GET","POST"])
