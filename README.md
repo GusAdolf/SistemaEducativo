@@ -1,3 +1,5 @@
+![image](https://user-images.githubusercontent.com/49161487/215668979-e95fd47f-5430-449a-9c9b-adfbb3fa8940.png)
+
 # SistemaEducativo
 ## Preambulo
 Crear aplicaciones utilizando herramientas de Ingeniería de software. Comprender el manejo de un equipo de desarrollo de software.
