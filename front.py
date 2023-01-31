@@ -40,14 +40,14 @@ def login():
         password = request.form['password']
         # Crear un cursor
         cursor = connection.cursor()
-
+        global cedula_est
+        global valor_id 
         # Verificar si el nombre de usuario y la contraseña son válidos
         try:
             query = 'SELECT id_est, nombre, apellido FROM estudiante WHERE id_est = %s AND contrasenia = %s'
             connection.ping()
             cursor.execute(query, (username, password))
             result1 = cursor.fetchone()
-            global cedula_est
             cedula_est = result1[0]
         except:
             print('sin resultado 1')
@@ -62,7 +62,7 @@ def login():
             connection.ping()
             cursor2.execute(query2, (username, password))
             result2 = cursor2.fetchone()
-            global valor_id 
+            
             valor_id =  result2[0]
         except:
             print('sin resultado 2')
