@@ -214,7 +214,7 @@ def calificaciones():
     # Crear un cursor
     cursor = connection.cursor()
     # Verificar si el nombre de usuario y la contraseña son válidos
-    query = 'select e.nombre, e.apellido from estudiante AS e where e.curso = (SELECT p.curso_dirigido from profesor AS p where p.id_profesor = %s);'
+    query = 'select e.nombre, e.apellido , e.id_est from estudiante AS e where e.curso = (SELECT p.curso_dirigido from profesor AS p where p.id_profesor = %s);'
     connection.ping()
     cursor.execute(query, (valor_id))
     result = cursor.fetchall()
