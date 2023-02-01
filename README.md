@@ -21,9 +21,10 @@ Para que el proyecto pueda correr correctamente hay que seguir los siguientes pa
 4. Ejecutar el comando 'pip install flask'
 5. Ejecutar el comando 'pipenv shell'
 6. Por ultimo ejecutar el comando 'python front.py'
-##INGRESO A LA BASE DE DATOS
+
+##### INGRESO A LA BASE DE DATOS
 LINK: https://www.db4free.net/phpMyAdmin/index.php?route=/
-connection = pymysql.connect(host='db4free.net',
-                                user='admin12345',
-                                password='admin12345',
-                                db='sisedu12345')
+##### host= db4free.net
+##### user= admin12345
+##### password= admin12345
+##### db= sisedu12345 
